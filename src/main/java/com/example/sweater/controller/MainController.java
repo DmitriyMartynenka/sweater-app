@@ -18,14 +18,20 @@ public class MainController {
     private MessageRepo messageRepo;
 
     @GetMapping("/")
-    public String greeting(String name, Map<String, Object> model) {
+    public String greeting(Map<String, Object> model) {
         return "greeting";
     }
 
     @GetMapping("/main")
-    public String main(Map<String, Object> model) {
-        Iterable<Message> messages = messageRepo.findAll();
+    public String main(@RequestParam(required = false, defaultValue = "") String filter, Map<String, Object> model) {
+        Iterable<Message> messages;
+        if (filter != null && !filter.isEmpty()) {
+            messages = messageRepo.findByTag(filter);
+        } else {
+            messages = messageRepo.findAll();
+        }
         model.put("messages", messages);
+        model.put("filter", filter);
         return "main";
     }
 
@@ -38,18 +44,6 @@ public class MainController {
         Message message = new Message(text, tag, user);
         messageRepo.save(message);
         Iterable<Message> messages = messageRepo.findAll();
-        model.put("messages", messages);
-        return "main";
-    }
-
-    @PostMapping("filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model) {
-        Iterable<Message> messages;
-        if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
-        } else {
-            messages = messageRepo.findAll();
-        }
         model.put("messages", messages);
         return "main";
     }
