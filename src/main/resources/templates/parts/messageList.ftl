@@ -1,20 +1,23 @@
 <#include "security.ftl">
+<#import "pager.ftl" as p>
+
+<@p.pager url page/>
 <div class="row row-cols-4 row-cols-mt-3">
-    <#list messages as message>
+    <#list page.content as page>
         <div class="card m-2">
             <div>
-                <#if message.filename??>
-                    <img src="/img/${message.filename}" class="card-img-top">
+                <#if page.filename??>
+                    <img src="/img/${page.filename}" class="card-img-top">
                 </#if>
             </div>
             <div class="m-2">
-                <span>${message.text}</span><br>
-                <i>#${message.tag}</i>
+                <span>${page.text}</span><br>
+                <i>#${page.tag}</i>
             </div>
             <div class="card-footer text-muted">
-                <a href="/user-messages/${message.author.id}">${message.authorName}</a>
-                <#if message.author.id==currentUserId>
-                    <a class="btn btn-primary" href="/user-messages/${message.author.id}?message=${message.id}">Edit</a>
+                <a href="/user-messages/${page.author.id}">${page.authorName}</a>
+                <#if page.author.id==currentUserId>
+                    <a class="btn btn-primary" href="/user-messages/${page.author.id}?message=${page.id}">Edit</a>
                 </#if>
             </div>
         </div>
@@ -22,3 +25,4 @@
         No message
     </#list>
 </div>
+<@p.pager url page/>
