@@ -46,7 +46,6 @@ public class User implements UserDetails {
     private Set<User> subscribers = new HashSet<>();
 
     @ManyToMany
-
     @JoinTable(
             name = "user_subscriptions",
             joinColumns = @JoinColumn(name = "subscriber_id"),

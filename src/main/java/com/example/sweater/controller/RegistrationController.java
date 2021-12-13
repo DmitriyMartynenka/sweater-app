@@ -3,12 +3,11 @@ package com.example.sweater.controller;
 import com.example.sweater.domain.User;
 import com.example.sweater.domain.dto.CaptchaResponseDto;
 import com.example.sweater.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,7 @@ import java.util.Map;
 
 @Controller
 public class RegistrationController {
-    private static final String CAPTCHA_URL="https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s";
+    private static final String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s";
 
     @Value("${recaptcha.secret}")
     private String secret;
@@ -44,17 +43,17 @@ public class RegistrationController {
                           @Valid User user,
                           BindingResult bindingResult,
                           Model model) {
-        String url=String.format(CAPTCHA_URL, secret, captchaResp);
+        String url = String.format(CAPTCHA_URL, secret, captchaResp);
         CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
 
-        if(!response.isSuccess()) {
+        if (!response.isSuccess()) {
             model.addAttribute("captchaError", "Fill captcha!");
         }
-        boolean isConfirmEmpty = StringUtils.isEmpty(passwordConfirm);
-        if(isConfirmEmpty) {
+        boolean isConfirmEmpty = StringUtils.isBlank(passwordConfirm);
+        if (isConfirmEmpty) {
             model.addAttribute("password2Error", "Password confirmation cannot be empty");
         }
-        if(user.getPassword()!= null && !user.getPassword().equals(passwordConfirm)) {
+        if (user.getPassword() != null && !user.getPassword().equals(passwordConfirm)) {
             model.addAttribute("passwordError", "Passwords are different!");
         }
 
@@ -64,8 +63,8 @@ public class RegistrationController {
             return "registration";
         }
 
-        if(!userService.addUser(user)) {
-            model.addAttribute("usernameError","User exists");
+        if (!userService.addUser(user)) {
+            model.addAttribute("usernameError", "User exists");
             return "registration";
         }
         return "redirect:/login";
@@ -75,7 +74,7 @@ public class RegistrationController {
     public String activate(Model model, @PathVariable String code) {
         boolean isActivated = userService.activateUser(code);
 
-        if(isActivated) {
+        if (isActivated) {
             model.addAttribute("messageType", "success");
             model.addAttribute("message", "Success.Activation complete.");
         } else {
