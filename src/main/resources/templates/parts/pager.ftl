@@ -31,7 +31,7 @@
                         </li>
                     <#else>
                         <li class="page-item" aria-current="page">
-                            <a class="page-link" href="${url}?page=${p-1}&size=${page.getSize()}">${p}</a>
+                            <a class="page-link" href="${url}?page=${p-1}&amp;size=${page.getSize()}">${p}</a>
                         </li>
                     </#if>
                 </#list>
@@ -47,7 +47,7 @@
                         </li>
                     <#else>
                         <li class="page-item" aria-current="page">
-                            <a class="page-link" href="${url}?page=${page.getNumber()}&size=${c}">${c}</a>
+                            <a class="page-link" href="${url}?page=${page.getNumber()}&amp;size=${c}">${c}</a>
                         </li>
                     </#if>
                 </#list>

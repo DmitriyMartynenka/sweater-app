@@ -16,7 +16,7 @@
             </div>
             <div class="mt-2">
                 <input type="text" class="form-control ${(tagError??)?string('is-invalid', '')}" name="tag"
-                       value="<#if message??>${message.tag}</#if>" placeholder="Тэг">
+                       value="<#if message??>${message.tag}</#if>" placeholder="Тэг"/>
                 <#if tagError??>
                     <div class="invalid-feedback">
                         ${tagError}
@@ -25,12 +25,12 @@
             </div>
             <div class="mt-2">
                 <div class="custom-file">
-                    <input type="file" name="file" id="customFile">
+                    <input type="file" name="file" id="customFile"/>
                     <label class="custom-file-label" for="customFile"></label>
                 </div>
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input type="hidden" name="messageId" value="<#if message??>${message.id}</#if>">
+            <input type="hidden" name="messageId" value="<#if message??>${message.id!''}</#if>"/>
             <div class="mt-2">
                 <button type="submit" class="btn btn-primary">Save message</button>
             </div>

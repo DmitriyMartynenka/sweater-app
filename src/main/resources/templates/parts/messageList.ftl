@@ -2,7 +2,7 @@
 <#import "pager.ftl" as p>
 
 <@p.pager url page/>
-<div class="row row-cols-4 row-cols-mt-3">
+<div class="row row-cols-4 row-cols-mt-3" id="message-list">
     <#list page.content as page>
         <div class="card m-2">
             <div>
@@ -11,7 +11,7 @@
                 </#if>
             </div>
             <div class="m-2">
-                <span>${page.text}</span><br>
+                <span>${page.text}</span><br/>
                 <i>#${page.tag}</i>
             </div>
             <div class="card-footer text-muted">
@@ -25,4 +25,3 @@
         No message
     </#list>
 </div>
-<@p.pager url page/>

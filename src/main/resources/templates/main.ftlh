@@ -3,7 +3,7 @@
 <@c.page>
     <div class="input-group">
         <form method="get" action="/main">
-            <input type="text" name="filter" value="${filter!""}" placeholder="Search by tag">
+            <input type="text" name="filter" value="${filter!""}" placeholder="Search by tag"/>
             <button class="btn btn-primary ml-2" type="submit">Search</button>
         </form>
     </div>

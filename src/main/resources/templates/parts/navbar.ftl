@@ -13,12 +13,12 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             <#if user??>
-            <li class="nav-item">
-                <a class="nav-link" href="/main">Messages</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/user-messages/${currentUserId}">MyMessages</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/main">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user-messages/${currentUserId}">MyMessages</a>
+                </li>
             </#if>
             <#if isAdmin>
                 <li class="nav-item">
@@ -31,7 +31,7 @@
                 </li>
             </#if>
         </ul>
-        <div class="navbar-text me-3"> ${name}</div>
+        <div class="navbar-text me-3">${name}</div>
         <@l.logout />
     </div>
 </nav>
